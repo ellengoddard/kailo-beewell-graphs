@@ -11,6 +11,8 @@ python = "^3.12"
 pandas = "^2.2.3"
 numpy = "^2.1.1"
 ipykernel= "^6.7.0"
+matplotlib = "^3.5.1"
+seaborn = "^0.11.2"
 
 
 [build-system]
