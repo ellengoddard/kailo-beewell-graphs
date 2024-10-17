@@ -10,6 +10,10 @@ class School:
     mean_topic_score: float
 
 
+
+bwri_school = School(mean_topic_score=17.25)
+
+
 def make_comparison_graph(
     *,
     schools: List[School],  # ordered by mean score

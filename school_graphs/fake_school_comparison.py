@@ -1,5 +1,5 @@
-from comparison_graph import make_comparison_graph
-from comparison_graph import School
+from school_gtaphs.comparison_graph import make_comparison_graph
+from school_gtaphs.comparison_graph import School
 import matplotlib.pyplot as plt
 
 # Convert dictionaries to School objects
@@ -33,7 +33,7 @@ figure = make_comparison_graph(
     x_label=x_label,
     below_avg_amount=below_avg_amount,
     average_amount=average_amount,
-    current_school=current_school,
+    current_school=current_school, # School(mean_topic_score=17.25)
 )
 
 # Display the figure
