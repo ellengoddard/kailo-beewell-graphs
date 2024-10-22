@@ -1,5 +1,5 @@
-from school_gtaphs.comparison_graph import make_comparison_graph
-from school_gtaphs.comparison_graph import School
+from school_graphs.comparison_graph import make_comparison_graph
+from school_graphs.comparison_graph import School
 import matplotlib.pyplot as plt
 
 # Convert dictionaries to School objects
