@@ -30,11 +30,6 @@ def make_subgroup_comparison_graph(
     left_percentages = [float(p[0]) for p in percentages]
     right_percentages = [float(p[1]) for p in percentages]
 
-    print("Left percents:", left_percentages)
-    print("Right percents:", right_percentages)
-    print("Types in left_percentages:", [type(p) for p in left_percentages])
-    print("Types in right_percentages:", [type(p) for p in right_percentages])
-
     # Plot the bars with updated legend labels
     bars1 = ax.bar(
         index,
