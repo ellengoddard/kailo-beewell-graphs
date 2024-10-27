@@ -1,3 +1,7 @@
+"""
+This is a mock of the RAG comparison graph.
+"""
+
 from school_graphs.comparison_graph import make_comparison_graph
 from school_graphs.comparison_graph import School
 import matplotlib.pyplot as plt
@@ -33,7 +37,7 @@ figure = make_comparison_graph(
     x_label=x_label,
     below_avg_amount=below_avg_amount,
     average_amount=average_amount,
-    current_school=current_school, # School(mean_topic_score=17.25)
+    current_school=current_school,  # School(mean_topic_score=17.25)
 )
 
 # Display the figure

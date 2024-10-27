@@ -1,3 +1,8 @@
+"""
+This is the code to generate the graphs that compare RAG ratings between schools.
+Not to be confused with the double comparison graphs showing school-level responses.
+"""
+
 from dataclasses import dataclass
 from typing import List
 import matplotlib.pyplot as plt
@@ -8,7 +13,6 @@ from matplotlib.ticker import FuncFormatter
 @dataclass
 class School:
     mean_topic_score: float
-
 
 
 bwri_school = School(mean_topic_score=17.25)
