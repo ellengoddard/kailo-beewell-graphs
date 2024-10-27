@@ -69,66 +69,51 @@ def make_subgroup_comparison_graph(
     # Format y-axis to show percentages and remove negative signs
     ax.yaxis.set_major_formatter(mtick.PercentFormatter(decimals=0))
 
-    # Ensure y-axis starts at 0
+    # Initial y-axis limit (will adjust after hiding zero bars)
     ax.set_ylim(bottom=0)
 
-    # Add percentages above the bars and counts at the bottom inside the bars
+    # Extract counts
     left_counts = [c[0] for c in counts_list]
     right_counts = [c[1] for c in counts_list]
 
     # Adjust y-axis limit to accommodate annotations
-    max_percent = max(max(left_percentages), max(right_percentages))
+    max_percent = max(max(left_percentages), max(right_percentages), 0)
     ax.set_ylim(0, max_percent + 10)  # Increase upper limit by 10% for annotations
 
-    for rect, count, percent in zip(bars1, left_counts, left_percentages):
-        height = rect.get_height()
-        # Annotate count at the bottom inside the bar
-        ax.annotate(
-            f"{count}",
-            xy=(rect.get_x() + rect.get_width() / 2, 0),
-            xytext=(0, 2),  # 2 points vertical offset
-            textcoords="offset points",
-            ha="center",
-            va="bottom",
-            color="black",
-            fontsize=8,
-        )
-        # Annotate percentage above the bar
-        ax.annotate(
-            f"{percent:.1f}%",
-            xy=(rect.get_x() + rect.get_width() / 2, height),
-            xytext=(0, 5),
-            textcoords="offset points",
-            ha="center",
-            va="bottom",
-            fontsize=8,
-            color="black",
-        )
+    # Function to handle bar visibility and annotations
+    def handle_bars(bars, counts, percentages):
+        for bar, count, percent in zip(bars, counts, percentages):
+            height = bar.get_height()
+            if height == 0:
+                bar.set_visible(False)
+                continue  # Skip annotations for zero-height bars
 
-    for rect, count, percent in zip(bars2, right_counts, right_percentages):
-        height = rect.get_height()
-        # Annotate count at the bottom inside the bar
-        ax.annotate(
-            f"{count}",
-            xy=(rect.get_x() + rect.get_width() / 2, 0),
-            xytext=(0, 2),
-            textcoords="offset points",
-            ha="center",
-            va="bottom",
-            color="black",
-            fontsize=8,
-        )
-        # Annotate percentage above the bar
-        ax.annotate(
-            f"{percent:.1f}%",
-            xy=(rect.get_x() + rect.get_width() / 2, height),
-            xytext=(0, 5),
-            textcoords="offset points",
-            ha="center",
-            va="bottom",
-            fontsize=8,
-            color="black",
-        )
+            # Annotate count at the bottom inside the bar
+            ax.annotate(
+                f"{count}",
+                xy=(bar.get_x() + bar.get_width() / 2, 0),
+                xytext=(0, 2),  # 2 points vertical offset
+                textcoords="offset points",
+                ha="center",
+                va="bottom",
+                color="black",
+                fontsize=8,
+            )
+            # Annotate percentage above the bar
+            ax.annotate(
+                f"{percent:.1f}%",
+                xy=(bar.get_x() + bar.get_width() / 2, height),
+                xytext=(0, 5),
+                textcoords="offset points",
+                ha="center",
+                va="bottom",
+                fontsize=8,
+                color="black",
+            )
+
+    # Handle annotations and visibility for both groups
+    handle_bars(bars1, left_counts, left_percentages)
+    handle_bars(bars2, right_counts, right_percentages)
 
     # Set background color
     fig.patch.set_facecolor(BACKGROUND_COLOR)
@@ -137,31 +122,3 @@ def make_subgroup_comparison_graph(
     fig.tight_layout()
 
     return fig
-
-
-# figure = make_subgroup_comparison_graph(
-#     category_label=[
-#         "1 - Completely not true",
-#         "2",
-#         "3",
-#         "4",
-#         "5 - Completely true",
-#         "No response",
-#     ],
-#     percentages=[
-#         (14.5, 17.3),
-#         (21.0, 17.3),
-#         (22.6, 15.4),
-#         (9.7, 21.2),
-#         (24.2, 11.5),
-#         (8.1, 17.3),
-#     ],
-#     counts_list=[(3, 4), (6, 4), (7, 5), (4, 11), (11, 6), (5, 2)],
-#     topic="Autonomy",
-#     measure_label="I feel pressured in my life",
-#     comparison_groups=["Year 8", "Year 10"],
-#     legend_title="Pupils",
-# )
-
-# # Display the figure
-# plt.show()
