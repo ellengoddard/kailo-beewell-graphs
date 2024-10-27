@@ -27,8 +27,13 @@ def make_subgroup_comparison_graph(
     bar_width = 0.35
 
     # Extract the left and right percentages
-    left_percentages = [p[0] for p in percentages]
-    right_percentages = [p[1] for p in percentages]
+    left_percentages = [float(p[0]) for p in percentages]
+    right_percentages = [float(p[1]) for p in percentages]
+
+    print("Left percents:", left_percentages)
+    print("Right percents:", right_percentages)
+    print("Types in left_percentages:", [type(p) for p in left_percentages])
+    print("Types in right_percentages:", [type(p) for p in right_percentages])
 
     # Plot the bars with updated legend labels
     bars1 = ax.bar(
@@ -139,31 +144,29 @@ def make_subgroup_comparison_graph(
     return fig
 
 
-figure = make_subgroup_comparison_graph(
-    category_label=[
-        "1 - Completely not true",
-        "2",
-        "3",
-        "4",
-        "5 - Completely true",
-        "No response",
-    ],
-    percentages=[
-        (14.5, 17.3),
-        (21.0, 17.3),
-        (22.6, 15.4),
-        (9.7, 21.2),
-        (24.2, 11.5),
-        (8.1, 17.3),
-    ],
-    counts_list=[(3, 4), (6, 4), (7, 5), (4, 11), (11, 6), (5, 2)],
-    school_name="School A",
-    subgroup="year_group",
-    topic="Autonomy",
-    measure_label="I feel pressured in my life",
-    comparison_groups=["Year 8", "Year 10"],
-    legend_title="Pupils",
-)
+# figure = make_subgroup_comparison_graph(
+#     category_label=[
+#         "1 - Completely not true",
+#         "2",
+#         "3",
+#         "4",
+#         "5 - Completely true",
+#         "No response",
+#     ],
+#     percentages=[
+#         (14.5, 17.3),
+#         (21.0, 17.3),
+#         (22.6, 15.4),
+#         (9.7, 21.2),
+#         (24.2, 11.5),
+#         (8.1, 17.3),
+#     ],
+#     counts_list=[(3, 4), (6, 4), (7, 5), (4, 11), (11, 6), (5, 2)],
+#     topic="Autonomy",
+#     measure_label="I feel pressured in my life",
+#     comparison_groups=["Year 8", "Year 10"],
+#     legend_title="Pupils",
+# )
 
-# Display the figure
-plt.show()
+# # Display the figure
+# plt.show()
