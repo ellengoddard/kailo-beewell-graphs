@@ -1,9 +1,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from typing import List, Literal
+from typing import List
 import matplotlib.ticker as mtick
 
 # SUBGROUP = Literal["gender", "year_group", "fsm", "sen"]
+
 
 def make_all_pupils_responses_graph(
     *,
