@@ -124,15 +124,15 @@ def make_all_pupils_responses_graph(
     return fig
 
 
-# Example usage
-fig = make_all_pupils_responses_graph(
-    category_label=["1", "2", "3", "4", "5"],
-    percentages=[15.6, 21.1, 17.2, 16.4, 17.2],
-    counts_list=[5, 7, 6, 4, 5],
-    topic="Autonomy",
-    measure_label="I feel pressured in my life",
-    legend_title="Pupils",
-    legend_label="All Pupils",
-)
+# # Example usage
+# fig = make_all_pupils_responses_graph(
+#     category_label=["1", "2", "3", "4", "5"],
+#     percentages=[15.6, 21.1, 17.2, 16.4, 17.2],
+#     counts_list=[5, 7, 6, 4, 5],
+#     topic="Autonomy",
+#     measure_label="I feel pressured in my life",
+#     legend_title="Pupils",
+#     legend_label="All Pupils",
+# )
 
-plt.show()
+# plt.show()
