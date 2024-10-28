@@ -92,7 +92,7 @@ def make_all_pupils_responses_graph(
 
             # Annotate count at the bottom inside the bar
             ax.annotate(
-                f"n={count}",
+                f"n={int(count)}" if count else "",
                 xy=(bar.get_x() + bar.get_width() / 2, 0),
                 xytext=(0, 2),  # 2 points vertical offset
                 textcoords="offset points",
