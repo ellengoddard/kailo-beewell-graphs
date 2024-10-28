@@ -24,7 +24,7 @@ def make_subgroup_comparison_graph(
 
     n_categories = len(category_label)
     index = np.arange(n_categories)
-    bar_width = 0.35
+    bar_width = 0.45
 
     # Extract the left and right percentages
     left_percentages = [float(p[0]) for p in percentages]
@@ -54,7 +54,7 @@ def make_subgroup_comparison_graph(
     # Add labels, title, and legend
     ax.set_xlabel("Response")
     ax.set_ylabel("Percentage of pupils")
-    ax.set_title(f"{measure_label}\n({topic})")
+    ax.set_title(f"{measure_label}\n({topic})", wrap=True)
     ax.set_xticks(index + bar_width / 2)
     ax.set_xticklabels(category_label, rotation=-45, ha="left")
 
