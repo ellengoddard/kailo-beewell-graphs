@@ -89,7 +89,7 @@ def make_subgroup_comparison_graph(
         height = rect.get_height()
         # Annotate count at the bottom inside the bar
         ax.annotate(
-            f"n={count}",
+            f"n={int(count)}" if count else "",
             xy=(rect.get_x() + rect.get_width() / 2, 0),
             xytext=(0, 2),  # 2 points vertical offset
             textcoords="offset points",
@@ -98,7 +98,7 @@ def make_subgroup_comparison_graph(
             color="black",
             fontsize=8,
         )
-        # Annotate percentage above the bar
+        # Annotate percentage above the bar, always show %, even if it's 0
         ax.annotate(
             f"{percent:.1f}%",
             xy=(rect.get_x() + rect.get_width() / 2, height),
@@ -114,7 +114,8 @@ def make_subgroup_comparison_graph(
         height = rect.get_height()
         # Annotate count at the bottom inside the bar
         ax.annotate(
-            f"n={count}",
+            # If count exists, show count otherwise show empty string (nothing)
+            f"n={int(count)}" if count else "",
             xy=(rect.get_x() + rect.get_width() / 2, 0),
             xytext=(0, 2),
             textcoords="offset points",
@@ -123,7 +124,7 @@ def make_subgroup_comparison_graph(
             color="black",
             fontsize=8,
         )
-        # Annotate percentage above the bar
+        # Annotate percentage above the bar, always show %, even if it's 0
         ax.annotate(
             f"{percent:.1f}%",
             xy=(rect.get_x() + rect.get_width() / 2, height),
@@ -157,11 +158,11 @@ figure = make_subgroup_comparison_graph(
         (14.5, 17.3),
         (21.0, 17.3),
         (22.6, 15.4),
-        (9.7, 21.2),
+        (0.0, 21.2),
         (24.2, 11.5),
-        (8.1, 17.3),
+        (8.1, 0.0),
     ],
-    counts_list=[(3, 4), (6, 4), (7, 5), (4, 11), (11, 6), (5, 2)],
+    counts_list=[(3, 4), (6, 4), (7, 5), (0, 11), (11, 6), (5, 0)],
     topic="Autonomy",
     measure_label="I feel pressured in my life",
     comparison_groups=["Year 8", "Year 10"],
