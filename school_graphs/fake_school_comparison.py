@@ -2,8 +2,8 @@
 This is a mock of the RAG comparison graph.
 """
 
-from school_graphs.comparison_graph import make_comparison_graph
-from school_graphs.comparison_graph import School
+from school_graphs.rag_schools_comparison_graph import make_comparison_graph
+from school_graphs.rag_schools_comparison_graph import School
 import matplotlib.pyplot as plt
 
 # Convert dictionaries to School objects

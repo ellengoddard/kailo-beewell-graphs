@@ -5,7 +5,6 @@ import matplotlib.ticker as mtick
 
 # SUBGROUP = Literal["gender", "year_group", "fsm", "sen"]
 
-
 def make_all_pupils_responses_graph(
     *,
     category_label: List[str],
