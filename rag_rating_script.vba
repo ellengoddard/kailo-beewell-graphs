@@ -1,74 +1,70 @@
-Full macro 
-
-Sub convert_and_format_rag()
+Sub SaveCSVAsXLSMAndApplyFormatting()
     Dim folderPath As String
+    Dim xlsmFolderPath As String
     Dim fileName As String
     Dim wb As Workbook
-    Dim ws As Worksheet
-    Dim csvFileName As String
+    Dim newFileName As String
+
+    ' Set the path to the folder containing CSV files
+    folderPath = "/Users/ellengoddard/Desktop/macro_test/"  ' <-- Adjust path if needed
     
-    ' Set the folder path where CSV files are stored (correctly formatted for Mac)
-    folderPath = "/Users/ellengoddard/Desktop/beewell_example_graphs/rag_ratings/"
+    ' Set the path for the xlsm subfolder
+    xlsmFolderPath = folderPath & "xlsm/"
+
+    ' Create the xlsm folder if it doesn't exist
+    If Dir(xlsmFolderPath, vbDirectory) = "" Then
+        MkDir xlsmFolderPath
+    End If
     
     ' Get the first CSV file in the folder
-    fileName = Dir(folderPath & "*.csv") ' This will get all CSV files in the folder
-    
+    fileName = Dir(folderPath & "*.csv")
+
     ' Loop through all CSV files in the folder
     Do While fileName <> ""
-        On Error GoTo SaveError ' Start error handling
-        
         ' Open the CSV file
-        Debug.Print "Opening file: " & folderPath & fileName
-        Set wb = Workbooks.Open(folderPath & fileName, Local:=True) ' Open as a workbook
+        Set wb = Workbooks.Open(folderPath & fileName)
         
-        ' Change the file format from CSV to a workbook format
-        If wb.FileFormat = xlCSV Then
-            Debug.Print "File opened as CSV, converting to XLSM"
-        Else
-            Debug.Print "File opened in a different format: " & wb.FileFormat
-        End If
+        ' Create the new file name with .xlsm extension in the xlsm subfolder
+        newFileName = Replace(fileName, ".csv", ".xlsm")
+        
+        ' Save the workbook as .xlsm in the xlsm subfolder
+        wb.SaveAs fileName:=xlsmFolderPath & newFileName, FileFormat:=xlOpenXMLWorkbookMacroEnabled
+        
+        ' Close the workbook
+        wb.Close False
+        
+        ' Move to the next CSV file
+        fileName = Dir
+    Loop
+
+    ' Apply formatting to all xlsm files in the xlsm subfolder
+    fileName = Dir(xlsmFolderPath & "*.xlsm")
+    
+    Do While fileName <> ""
+        ' Open each .xlsm file in the xlsm subfolder
+        Set wb = Workbooks.Open(xlsmFolderPath & fileName)
         
         ' Apply conditional formatting to each worksheet
+        Dim ws As Worksheet
         For Each ws In wb.Worksheets
             ApplyConditionalFormatting ws
         Next ws
         
-        ' Prepare the new file name (convert .csv to .xlsm)
-        csvFileName = Replace(fileName, ".csv", ".xlsm")
-        
-        ' Debug message to verify save path
-        Debug.Print "Saving file as: " & folderPath & csvFileName
-        
-        ' Check if the file already exists, delete it to avoid overwrite issues
-        If Dir(folderPath & csvFileName) <> "" Then
-            Debug.Print "File exists, deleting first..."
-            Kill folderPath & csvFileName ' Delete the existing file if it exists
-        End If
-        
-        ' Save the workbook as a Macro-Enabled Workbook (.xlsm)
-        Debug.Print "Saving workbook..."
-        wb.SaveAs folderPath & csvFileName, FileFormat:=xlOpenXMLWorkbookMacroEnabled
-        
-        ' Close the workbook
-        Debug.Print "Closing workbook..."
+        ' Save and close the workbook
         wb.Close SaveChanges:=True
         
-        ' Move to the next CSV file in the folder
+        ' Move to the next .xlsm file
         fileName = Dir
     Loop
-    
-    MsgBox "All CSV files have been converted and formatted!", vbInformation
-    Exit Sub
-    
-SaveError:
-    MsgBox "Error saving file: " & folderPath & csvFileName & vbCrLf & Err.Description
-    On Error GoTo 0 ' Reset error handling
+
+    MsgBox "All CSV files have been saved as .xlsm files and formatted."
 End Sub
 
 ' Subroutine to apply conditional formatting
 Sub ApplyConditionalFormatting(ws As Worksheet)
     Dim rng As Range
-    Dim ruleBad As FormatCondition, ruleNeutral As FormatCondition, ruleGood As FormatCondition
+    Dim ruleBad As FormatCondition, ruleNeutral As FormatCondition
+    Dim ruleGood As FormatCondition, ruleSpecial As FormatCondition
 
     ' Define the range to apply formatting (using UsedRange for the whole sheet)
     Set rng = ws.UsedRange
@@ -90,5 +86,9 @@ Sub ApplyConditionalFormatting(ws As Worksheet)
     Set ruleGood = rng.FormatConditions.Add(Type:=xlCellValue, Operator:=xlEqual, Formula1:="=""Above average""")
     ruleGood.Interior.Color = RGB(198, 239, 206)   ' Light green background
     ruleGood.Font.Color = RGB(0, 97, 0)           ' Dark green font
-End Sub
 
+    ' Apply "Special" (Blue) formatting for "n<10"
+    Set ruleSpecial = rng.FormatConditions.Add(Type:=xlCellValue, Operator:=xlEqual, Formula1:="=""n<10""")
+    ruleSpecial.Interior.Color = RGB(220, 227, 255) ' Light blue background
+    ruleSpecial.Font.Color = RGB(26, 83, 154)       ' Dark blue font
+End Sub
