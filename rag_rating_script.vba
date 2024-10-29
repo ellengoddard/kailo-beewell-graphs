@@ -6,7 +6,7 @@ Sub SaveCSVAsXLSMAndApplyFormatting()
     Dim newFileName As String
 
     ' Set the path to the folder containing CSV files
-    folderPath = "/Users/ellengoddard/Desktop/macro_test/"  ' <-- Adjust path if needed
+    folderPath = #filepath here <-- Adjust path if needed
     
     ' Set the path for the xlsm subfolder
     xlsmFolderPath = folderPath & "xlsm/"
