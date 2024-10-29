@@ -1,3 +1,9 @@
+"""
+* This is a macro to be run in Excel. 
+* The first part converts .csv files in a folder to .xlsm (which is necessary for making changes to the data), and saves them in a sub-folder.
+* The second part applies conditional formatting to the RAG rating data, so the tables can be pasted directly into the PPT slides.
+"""
+
 Sub SaveCSVAsXLSMAndApplyFormatting()
     Dim folderPath As String
     Dim xlsmFolderPath As String
