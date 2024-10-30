@@ -14,10 +14,6 @@ from matplotlib.ticker import FuncFormatter
 class School:
     mean_topic_score: float
 
-
-bwri_school = School(mean_topic_score=17.25)
-
-
 def make_comparison_graph(
     *,
     schools: List[School],  # ordered by mean score
@@ -139,3 +135,8 @@ def make_comparison_graph(
     )
 
     return fig
+
+
+"""
+In the same output folder, print statement "Your school had 102 complete responses. Across Northern Devon, there were 741 complete responses from 7 schools. The average score for the pupils at your school, compared to other schools in Northern Devon, was:" for each school and topic.
+"""
