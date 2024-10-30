@@ -1,24 +1,28 @@
-import numpy as np
+"""Module to contain the responses double comparison graphs."""
+
+from typing import Literal
+
 import matplotlib.pyplot as plt
-from typing import List, Tuple, Literal
 import matplotlib.ticker as mtick
+import numpy as np
 
 SUBGROUP = Literal["gender", "year_group", "fsm", "sen"]
 
 
-def make_subgroup_comparison_graph(
+def make_subgroup_comparison_graph(  # noqa: PLR0913
     *,
-    category_label: List[str],
-    percentages: List[Tuple[float, float]],
-    counts_list: List[Tuple[int, int]],
+    category_label: list[str],
+    percentages: list[tuple[float, float]],
+    counts_list: list[tuple[int, int]],
     topic: str,
     measure_label: str,
-    comparison_groups: List[str],
+    comparison_groups: list[str],
     legend_title: str,  # Added legend_title parameter
 ) -> plt.Figure:
-    LEFT_BAR_COLOUR = "#ea7555"
-    RIGHT_BAR_COLOUR = "#f1b79f"
-    BACKGROUND_COLOR = "#ffffff"
+    """Make the dual-barred charts."""
+    LEFT_BAR_COLOUR = "#ea7555"  # noqa: N806
+    RIGHT_BAR_COLOUR = "#f1b79f"  # noqa: N806
+    BACKGROUND_COLOR = "#ffffff"  # noqa: N806
 
     fig, ax = plt.subplots(figsize=(10, 6))
 
@@ -29,11 +33,6 @@ def make_subgroup_comparison_graph(
     # Extract the left and right percentages
     left_percentages = [float(p[0]) for p in percentages]
     right_percentages = [float(p[1]) for p in percentages]
-
-    print("Left percents:", left_percentages)
-    print("Right percents:", right_percentages)
-    print("Types in left_percentages:", [type(p) for p in left_percentages])
-    print("Types in right_percentages:", [type(p) for p in right_percentages])
 
     # Plot the bars with updated legend labels
     bars1 = ax.bar(
@@ -59,16 +58,14 @@ def make_subgroup_comparison_graph(
     ax.set_xticklabels(category_label, rotation=-45, ha="left")
 
     # Add legend with title and without border
-    ax.legend(
-        loc="upper left", bbox_to_anchor=(1, 1), frameon=False, title=legend_title
-    )
+    ax.legend(loc="upper left", bbox_to_anchor=(1, 1), frameon=False, title=legend_title)
 
     # Remove the frame (spines)
     for spine in ax.spines.values():
         spine.set_visible(False)
 
     # Add faint horizontal gridlines
-    ax.yaxis.grid(True, color="#EEEEEE")
+    ax.yaxis.grid(visible=True, color="#EEEEEE")
     ax.set_axisbelow(True)
 
     # Format y-axis to show percentages and remove negative signs
@@ -82,10 +79,10 @@ def make_subgroup_comparison_graph(
     right_counts = [c[1] for c in counts_list]
 
     # Adjust y-axis limit to accommodate annotations
-    max_percent = max(max(left_percentages), max(right_percentages))
+    max_percent = max(*left_percentages, *right_percentages)
     ax.set_ylim(0, max_percent + 10)  # Increase upper limit by 10% for annotations
 
-    for rect, count, percent in zip(bars1, left_counts, left_percentages):
+    for rect, count, percent in zip(bars1, left_counts, left_percentages, strict=False):
         height = rect.get_height()
         # Annotate count at the bottom inside the bar
         ax.annotate(
@@ -110,7 +107,7 @@ def make_subgroup_comparison_graph(
             color="black",
         )
 
-    for rect, count, percent in zip(bars2, right_counts, right_percentages):
+    for rect, count, percent in zip(bars2, right_counts, right_percentages, strict=False):
         height = rect.get_height()
         # Annotate count at the bottom inside the bar
         ax.annotate(
@@ -143,31 +140,3 @@ def make_subgroup_comparison_graph(
     fig.tight_layout()
 
     return fig
-
-
-figure = make_subgroup_comparison_graph(
-    category_label=[
-        "1 - Completely not true",
-        "2",
-        "3",
-        "4",
-        "5 - Completely true",
-        "No response",
-    ],
-    percentages=[
-        (14.5, 17.3),
-        (21.0, 17.3),
-        (22.6, 15.4),
-        (0.0, 21.2),
-        (24.2, 11.5),
-        (8.1, 0.0),
-    ],
-    counts_list=[(3, 4), (6, 4), (7, 5), (0, 11), (11, 6), (5, 0)],
-    topic="Autonomy",
-    measure_label="I feel pressured in my life",
-    comparison_groups=["Year 8", "Year 10"],
-    legend_title="Pupils",
-)
-
-# Display the figure
-plt.show()

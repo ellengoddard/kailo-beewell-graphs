@@ -1,23 +1,21 @@
-import numpy as np
+"""Makes the all pupils responses graphs."""
+
 import matplotlib.pyplot as plt
-from typing import List
 import matplotlib.ticker as mtick
+import numpy as np
 
-# SUBGROUP = Literal["gender", "year_group", "fsm", "sen"]
 
-
-def make_all_pupils_responses_graph(
+def make_all_pupils_responses_graph(  # noqa: PLR0913
     *,
-    category_label: List[str],
-    percentages: List[float],
-    counts_list: List[int],
+    category_label: list[str],
+    percentages: list[float],
+    counts_list: list[int],
     topic: str,
     measure_label: str,
     legend_title: str = "Pupils",  # Default legend title
     legend_label: str = "All Pupils",  # Default legend label
 ) -> plt.Figure:
-    """
-    Generates a single bar chart for all pupils' responses.
+    """Generate a single bar chart for all pupils' responses.
 
     Args:
         category_label (List[str]): Labels for each category.
@@ -30,9 +28,10 @@ def make_all_pupils_responses_graph(
 
     Returns:
         plt.Figure: The generated matplotlib figure.
+
     """
-    BAR_COLOUR = "#ea7555"
-    BACKGROUND_COLOR = "#ffffff"
+    BAR_COLOUR = "#ea7555"  # noqa: N806
+    BACKGROUND_COLOR = "#ffffff"  # noqa: N806
 
     fig, ax = plt.subplots(figsize=(10, 6))
 
@@ -50,12 +49,14 @@ def make_all_pupils_responses_graph(
     )
 
     # Add labels, title, and legend
+    ax.set_title(f"{measure_label}\n({topic})", wrap=True)
     ax.set_xlabel("Response")
     ax.set_ylabel("Percentage of pupils")
-    ax.set_title(f"{measure_label}\n({topic})")
     ax.set_xticks(index + bar_width / 2)  # Align with double bar chart
     ax.set_xticklabels(
-        category_label, rotation=-45, ha="left"
+        category_label,
+        rotation=-45,
+        ha="left",
     )  # Consistent rotation and alignment
 
     # Add legend with title and without border
@@ -71,8 +72,8 @@ def make_all_pupils_responses_graph(
         spine.set_visible(False)
 
     # Add faint horizontal gridlines only on y-axis
-    ax.yaxis.grid(True, color="#EEEEEE")
-    ax.xaxis.grid(False)
+    ax.yaxis.grid(visible=True, color="#EEEEEE")
+    ax.xaxis.grid(visible=False)
     ax.set_axisbelow(True)
 
     # Format y-axis to show percentages without decimals
@@ -83,8 +84,8 @@ def make_all_pupils_responses_graph(
     ax.set_ylim(0, max_percent + 10)  # Increase upper limit by 10% for annotations
 
     # Function to handle bar visibility and annotations
-    def handle_bars(bars, counts, percentages):
-        for bar, count, percent in zip(bars, counts, percentages):
+    def handle_bars(bars, counts, percentages) -> None:
+        for bar, count, percent in zip(bars, counts, percentages, strict=False):
             height = bar.get_height()
             if height == 0:
                 bar.set_visible(False)
@@ -123,17 +124,3 @@ def make_all_pupils_responses_graph(
     fig.tight_layout()
 
     return fig
-
-
-# # Example usage
-# fig = make_all_pupils_responses_graph(
-#     category_label=["1", "2", "3", "4", "5"],
-#     percentages=[15.6, 21.1, 17.2, 16.4, 17.2],
-#     counts_list=[5, 7, 6, 4, 5],
-#     topic="Autonomy",
-#     measure_label="I feel pressured in my life",
-#     legend_title="Pupils",
-#     legend_label="All Pupils",
-# )
-
-# plt.show()

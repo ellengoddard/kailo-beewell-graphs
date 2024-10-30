@@ -1,10 +1,10 @@
-"""
-This is the code to generate the graphs that compare RAG ratings between schools.
+"""Code to generate the graphs that compare RAG ratings between schools.
+
 Not to be confused with the double comparison graphs showing school-level responses.
 """
 
 from dataclasses import dataclass
-from typing import List
+
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.ticker import FuncFormatter
@@ -12,11 +12,14 @@ from matplotlib.ticker import FuncFormatter
 
 @dataclass
 class School:
+    """Used to compare objects in this module."""
+
     mean_topic_score: float
 
-def make_comparison_graph(
+
+def make_comparison_graph(  # noqa: PLR0913
     *,
-    schools: List[School],  # ordered by mean score
+    schools: list[School],  # ordered by mean score
     range_low: float,
     range_high: float,
     y_label: str,
@@ -25,10 +28,11 @@ def make_comparison_graph(
     average_amount: float,
     current_school: School,
 ) -> plt.Figure:
-    CURRENT_SCHOOL_COLOR = "#5D98AB"
-    OTHER_SCHOOL_COLOR = "#BFD8E0"
-    RECTANGLE_ALPHA = 0.20
-    BACKGROUND_COLOR = "#f4eee8"
+    """Make the main RAG graphs."""
+    CURRENT_SCHOOL_COLOR = "#5D98AB"  # noqa: N806
+    OTHER_SCHOOL_COLOR = "#BFD8E0"  # noqa: N806
+    RECTANGLE_ALPHA = 0.20  # noqa: N806
+    BACKGROUND_COLOR = "#f4eee8"  # noqa: N806
     fig, ax = plt.subplots()
 
     # Set the background color
@@ -89,26 +93,20 @@ def make_comparison_graph(
 
     # Create bar chart
     scores = [school.mean_topic_score for school in schools]
-    colors = [
-        OTHER_SCHOOL_COLOR if school != current_school else CURRENT_SCHOOL_COLOR
-        for school in schools
-    ]
+    colors = [OTHER_SCHOOL_COLOR if school != current_school else CURRENT_SCHOOL_COLOR for school in schools]
     _bars = ax.bar(range(len(schools)), scores, color=colors, alpha=1)
 
     ax.set_xlabel(x_label)
     ax.set_ylabel(y_label)
     ax.set_ylim(range_low, range_high)
     ax.set_xticks([])  # Remove x-axis labels for each school
-    ax.set_yticks(
-        np.arange(range_low, range_high + 0.5, 0.5)
-    )  # Set y-axis ticks to increment by 0.5
+    ax.set_yticks(np.arange(range_low, range_high + 0.5, 0.5))  # Set y-axis ticks to increment by 0.5
 
     # Custom formatter for y-axis tick labels
-    def custom_formatter(x, pos):
+    def custom_formatter(x: int | str) -> str:
         if x.is_integer():
             return f"{int(x)}"
-        else:
-            return f"{x:.1f}"
+        return f"{x:.1f}"
 
     ax.yaxis.set_major_formatter(FuncFormatter(custom_formatter))
 
@@ -138,5 +136,8 @@ def make_comparison_graph(
 
 
 """
-In the same output folder, print statement "Your school had 102 complete responses. Across Northern Devon, there were 741 complete responses from 7 schools. The average score for the pupils at your school, compared to other schools in Northern Devon, was:" for each school and topic.
+In the same output folder, print statement "Your school had 102 complete responses.
+Across Northern Devon, there were 741 complete responses from 7 schools.
+The average score for the pupils at your school,
+compared to other schools in Northern Devon, was:" for each school and topic.
 """
