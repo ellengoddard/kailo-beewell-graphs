@@ -1,10 +1,7 @@
-"""
-This is a mock of the RAG comparison graph.
-"""
+"""Mock of the RAG comparison graph. For testing purposes only."""
 
-from school_graphs.rag_schools_comparison_graph import make_comparison_graph
-from school_graphs.rag_schools_comparison_graph import School
 import matplotlib.pyplot as plt
+from rag_schools_comparison_graph import School, make_comparison_graph
 
 # Convert dictionaries to School objects
 schools = [

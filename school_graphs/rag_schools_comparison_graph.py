@@ -103,7 +103,7 @@ def make_comparison_graph(  # noqa: PLR0913
     ax.set_yticks(np.arange(range_low, range_high + 0.5, 0.5))  # Set y-axis ticks to increment by 0.5
 
     # Custom formatter for y-axis tick labels
-    def custom_formatter(x: int | str) -> str:
+    def custom_formatter(x: int | str, a) -> str:
         if x.is_integer():
             return f"{int(x)}"
         return f"{x:.1f}"
