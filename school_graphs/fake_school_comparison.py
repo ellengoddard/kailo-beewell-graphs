@@ -1,5 +1,5 @@
 """Mock of the RAG comparison graph. For testing purposes only."""
-
+# "# Print text: Your school had [n] complete responses. Across Northern Devon, there were [n] complete responses from [n] schools. The average score for the pupils at your school, compared to other schools in Northern Devon, was: [RAG]"
 import matplotlib.pyplot as plt
 from rag_schools_comparison_graph import School, make_comparison_graph
 
