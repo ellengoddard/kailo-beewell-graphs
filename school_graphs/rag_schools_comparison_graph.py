@@ -65,32 +65,6 @@ def make_comparison_graph(  # noqa: PLR0913
         label="Above average",
     )
 
-    # Add labels in grey text inside each rectangle
-    # ax.text(
-    #     -0.4,
-    #     below_avg_amount,
-    #     "Below Average",
-    #     verticalalignment="top",
-    #     horizontalalignment="left",
-    #     color="grey",
-    # )
-    # ax.text(
-    #     -0.4,
-    #     average_amount,
-    #     "Average",
-    #     verticalalignment="top",
-    #     horizontalalignment="left",
-    #     color="grey",
-    # )
-    # ax.text(
-    #     -0.4,
-    #     range_high,
-    #     "Above Average",
-    #     verticalalignment="top",
-    #     horizontalalignment="left",
-    #     color="grey",
-    # )
-
     # Create bar chart
     scores = [school.mean_topic_score for school in schools]
     colors = [
@@ -107,7 +81,7 @@ def make_comparison_graph(  # noqa: PLR0913
     ax.yaxis.set_major_locator(AutoLocator())
 
     # Custom formatter for y-axis tick labels
-    def custom_formatter(x: int | str, a) -> str:
+    def custom_formatter(x: int | str, _a) -> str:  # noqa: ANN001
         if x.is_integer():
             return f"{int(x)}"
         return f"{x:.2f}"
@@ -124,15 +98,14 @@ def make_comparison_graph(  # noqa: PLR0913
     from matplotlib.patches import Patch
 
     legend_elements = [
-        Patch(facecolor=CURRENT_SCHOOL_COLOR, edgecolor="none", label="Your School"),
+        Patch(facecolor=CURRENT_SCHOOL_COLOR, edgecolor="none", label="Your school"),
         Patch(facecolor=OTHER_SCHOOL_COLOR, edgecolor="none", label="Other schools"),
     ]
     # Place the legend in the upper right corner, outside the plot area
-    ax.legend(
+    fig.legend(
         title="Schools",
         handles=legend_elements,
-        loc="upper right",
-        bbox_to_anchor=(1.25, 1),
+        loc="outside right upper",
         frameon=False,
     )
 

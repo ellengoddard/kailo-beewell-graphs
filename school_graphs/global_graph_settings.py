@@ -12,6 +12,6 @@ def set_global_graph_settings() -> None:
             "xtick.labelsize": 12,
             "ytick.labelsize": 12,
             "legend.fontsize": 12,
-            "figure.figsize": (10, 6),
+            "figure.figsize": (12.2, 7.32),
         },
     )

@@ -1,11 +1,12 @@
 """Mock of the RAG comparison graph. For testing purposes only."""
+
 # "# Print text: Your school had [n] complete responses. Across Northern Devon, there were [n] complete responses from [n] schools. The average score for the pupils at your school, compared to other schools in Northern Devon, was: [RAG]"
 import matplotlib.pyplot as plt
 from rag_schools_comparison_graph import School, make_comparison_graph
 
 # Convert dictionaries to School objects
 schools = [
-    School(mean_topic_score=17.25),
+    School(school_name="a", mean_topic_score=17.25),
     School(mean_topic_score=17.55),
     School(mean_topic_score=17.65),
     School(mean_topic_score=17.7),
@@ -24,7 +25,7 @@ below_avg_amount = 17.4
 average_amount = 18.5
 above_avg_amount = 18.2
 
-current_school = School(mean_topic_score=17.25)
+current_school = School(school_name="a", mean_topic_score=17.25)
 
 figure = make_comparison_graph(
     schools=schools,
