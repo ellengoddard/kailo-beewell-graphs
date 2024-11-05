@@ -112,9 +112,3 @@ def make_comparison_graph(  # noqa: PLR0913
     return fig
 
 
-"""
-In the same output folder, print statement "Your school had 102 complete responses.
-Across Northern Devon, there were 741 complete responses from 7 schools.
-The average score for the pupils at your school,
-compared to other schools in Northern Devon, was:" for each school and topic.
-"""
