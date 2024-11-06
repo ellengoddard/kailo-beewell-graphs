@@ -25,7 +25,7 @@ def make_comparison_graph(  # noqa: PLR0913
     y_label: str,
     x_label: str,
     below_avg_amount: float,
-    average_amount: float,
+    above_avg_amount: float,
     current_school: School,
 ) -> plt.Figure:
     """Make the main RAG graphs."""
@@ -51,14 +51,14 @@ def make_comparison_graph(  # noqa: PLR0913
     ax.fill_between(
         x=[-0.5, len(schools) - 0.5],
         y1=below_avg_amount,
-        y2=average_amount,
+        y2=above_avg_amount,
         color="yellow",
         alpha=RECTANGLE_ALPHA,
         label="Average",
     )
     ax.fill_between(
         x=[-0.5, len(schools) - 0.5],
-        y1=average_amount,
+        y1=above_avg_amount,
         y2=range_high,
         color="green",
         alpha=RECTANGLE_ALPHA,
@@ -110,5 +110,3 @@ def make_comparison_graph(  # noqa: PLR0913
     )
 
     return fig
-
-
