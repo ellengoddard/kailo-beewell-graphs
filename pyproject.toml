@@ -13,6 +13,7 @@ numpy = "^2.1.2"
 ipykernel= "^6.7.0"
 matplotlib = "^3.9.2"
 seaborn = "^0.13.2"
+appnope = "^0.1.4"
 
 
 [build-system]
