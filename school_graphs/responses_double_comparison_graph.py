@@ -51,7 +51,7 @@ def make_subgroup_comparison_graph(  # noqa: PLR0913
     )
 
     # Add labels, title, and legend
-    ax.set_xlabel("Response")
+    ax.set_xlabel("Responses")
     ax.set_ylabel("Percentage of pupils")
     ax.set_title(f"{measure_label}\n({topic})", wrap=True)
     ax.set_xticks(index + bar_width / 2)
@@ -64,8 +64,9 @@ def make_subgroup_comparison_graph(  # noqa: PLR0913
     for spine in ax.spines.values():
         spine.set_visible(False)
 
-    # Add faint horizontal gridlines
-    ax.yaxis.grid(visible=True, color="#EEEEEE")
+    # Don't show vertical gridlines, only horizontal ones
+    ax.yaxis.grid(visible=True, color="#EEEEEE")  # Horizontal gridlines only
+    ax.xaxis.grid(visible=False)  # No vertical gridlines
     ax.set_axisbelow(True)
 
     # Format y-axis to show percentages and remove negative signs

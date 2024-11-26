@@ -50,7 +50,7 @@ def make_all_pupils_responses_graph(  # noqa: PLR0913
 
     # Add labels, title, and legend
     ax.set_title(f"{measure_label}\n({topic})", wrap=True)
-    ax.set_xlabel("Response")
+    ax.set_xlabel("Responses")
     ax.set_ylabel("Percentage of pupils")
     ax.set_xticks(index + bar_width / 2)  # Align with double bar chart
     ax.set_xticklabels(
@@ -88,9 +88,17 @@ def make_all_pupils_responses_graph(  # noqa: PLR0913
         for bar, count, percent in zip(bars, counts, percentages, strict=False):
             height = bar.get_height()
             if height == 0:
-                bar.set_visible(False)
-                continue  # Skip annotations for zero-height bars
-
+                # Annotate 0.0% for zero-height bars
+                ax.annotate(
+                    "0.0%",
+                    xy=(bar.get_x() + bar.get_width() / 2, height),
+                    xytext=(0, 5),
+                    textcoords="offset points",
+                    ha="center",
+                    va="bottom",
+                    fontsize=8,
+                    color="black",
+                )
             # Annotate count at the bottom inside the bar
             ax.annotate(
                 f"n={int(count)}" if count else "",
