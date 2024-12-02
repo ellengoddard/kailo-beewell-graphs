@@ -11,7 +11,7 @@ python = "^3.12"
 pandas = "^2.2.3"
 numpy = "^2.1.2"
 ipykernel= "^6.7.0"
-matplotlib = "^3.9.2"
+matplotlib = "^3.9.3"
 seaborn = "^0.13.2"
 appnope = "^0.1.4"
 
